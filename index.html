@@ -341,8 +341,11 @@
     }
     .lineup-header-left {}
     .lineup-event-name {
-      font-size: 0.875rem;
-      font-weight: 700;
+      font-family: "Barlow Condensed", ui-sans-serif, sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
       color: var(--text);
     }
     .lineup-day-label {
@@ -641,7 +644,7 @@ const TRIP = {
 
   flights: {
     arrivals: [
-      { who: ["Jovanny", "Mauricio"], date: "Friday, Sept 11",   time: "11:30 AM", flight: "WN 2631", note: "SAN → SEA", early: false },
+      { who: ["Jovanny", "Mauricio", "Byron", "Rebekah"], date: "Friday, Sept 11", time: "11:30 AM", flight: "WN 2631", note: "SAN → SEA", early: false },
       { who: ["Joobin", "Roujin"],    date: "Friday, Sept 11",   time: "3:50 PM",  flight: "WN 3983", note: "SJC → SEA", early: false },
       { who: ["Panda"],               date: "Thursday, Sept 10", time: "9:30 PM",  flight: "TBD",     note: "Arriving early", early: true },
     ],
@@ -668,49 +671,52 @@ const TRIP = {
 
   schedule: [
     {
-      day: "Thursday, Sept 10 — Arrival Day",
+      day: "Thursday, Sept 10",
       items: [
-        { time: "11:30 AM", desc: "Jovanny & Mauricio land", note: "WN2631 · Seattle" },
-        { time: "12:00 PM", desc: "Rental car pickup", note: "SIXT Minivan · Seattle" },
-        { time: "3:50 PM",  desc: "Joobin & Roujin land", note: "WN3983 · Seattle" },
-        { time: "9:30 PM",  desc: "Panda arrives", note: "" },
+        { time: "9:30 PM", desc: "Panda arrives", note: "Flight TBD" },
       ],
     },
     {
-      day: "Friday, Sept 11 — Pre-party",
+      day: "Friday, Sept 11 — Arrivals + Pre-party",
       items: [
-        { time: "Daytime", desc: "House check-in + supply run", note: "Costco / Trader Joe’s stop" },
-        { time: "6:00 PM", desc: "Pre-party begins", note: "Above & Beyond Deep Set" },
+        { time: "11:30 AM",  desc: "Jovanny, Mauricio, Byron & Rebekah land", note: "WN2631 · Seattle" },
+        { time: "12:00 PM",  desc: "Rental car pickup", note: "SIXT Minivan · Seattle" },
+        { time: "3:50 PM",   desc: "Joobin & Roujin land", note: "WN3983 · Seattle" },
+        { time: "Afternoon", desc: "Drive up to The Gorge", note: "" },
+        { time: "6:00 PM",   desc: "Pre-party begins", note: "Above & Beyond Deep Set" },
       ],
     },
     {
       day: "Saturday, Sept 12 — ABGT700",
       items: [
-        { time: "Morning", desc: "Group breakfast", note: "" },
         { time: "4:00 PM", desc: "ABGT700 begins", note: "Above & Beyond + full lineup" },
       ],
     },
     {
-      day: "Sunday, Sept 13 — Deep Day",
+      day: "Sunday, Sept 13 — Anjunadeep Open Air",
       items: [
-        { time: "Morning",  desc: "Slow morning", note: "" },
-        { time: "3:00 PM",  desc: "Anjunadeep Open Air begins", note: "Ben Böhmer + more" },
-        { time: "3:40 PM",  desc: "Joobin & Roujin depart", note: "WN1536 · SEA → SJC (3:40 PM)" },
-        { time: "5:50 PM",  desc: "Jovanny & Mauricio depart", note: "WN3538 · SEA → SAN (5:50 PM)" },
+        { time: "3:00 PM", desc: "Anjunadeep Open Air begins", note: "Ben Böhmer + more" },
       ],
     },
     {
-      day: "Monday, Sept 14 — Checkout",
+      day: "Monday, Sept 14 — Checkout + Departures",
       items: [
-        { time: "By noon",  desc: "Check out", note: "Pack up & head out" },
-        { time: "12:00 PM", desc: "Rental car return", note: "SIXT Minivan" },
+        { time: "Morning",  desc: "Check out", note: "Pack up & head out" },
+        { time: "By noon",  desc: "Return rental minivan", note: "SIXT · Seattle" },
+        { time: "3:40 PM",  desc: "Joobin & Roujin depart", note: "WN1536 · SEA → SJC" },
+        { time: "5:50 PM",  desc: "Jovanny & Mauricio depart", note: "WN3538 · SEA → SAN" },
       ],
     },
     {
-      day: "Tuesday & Wednesday, Sept 15–16",
+      day: "Tuesday, Sept 15",
       items: [
-        { time: "Tues 9:00 AM", desc: "Panda departs", note: "Flight TBD" },
-        { time: "Wed 5:30 PM", desc: "Rebekah & Byron depart", note: "WN2623 · SEA → SAN" },
+        { time: "9:00 AM", desc: "Panda departs", note: "Flight TBD" },
+      ],
+    },
+    {
+      day: "Wednesday, Sept 16",
+      items: [
+        { time: "5:30 PM", desc: "Byron & Rebekah depart", note: "WN2623 · SEA → SAN" },
       ],
     },
   ],
