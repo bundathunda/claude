@@ -565,8 +565,8 @@
 // ─────────────────────────────────────────────
 const TRIP = {
   name: "Above & Beyond Group Therapy 700",
-  checkin:  "Friday, Sept 12, 2025",
-  checkout: "Monday, Sept 15, 2025",
+  checkin:  "Friday, Sept 11, 2025",
+  checkout: "Monday, Sept 14, 2025",
   nights: 3,
   airbnb: "https://airbnb.com/rooms/53256234",
 
@@ -587,15 +587,15 @@ const TRIP = {
   rentalCar: {
     company: "SIXT",
     vehicle: "Minivan",
-    pickup:  "Thursday, Sept 11 · 12:00 PM",
-    dropoff: "Monday, Sept 15 · 12:00 PM",
+    pickup:  "Friday, Sept 11 · 12:00 PM",
+    dropoff: "Tuesday, Sept 15 · 12:00 PM",
   },
 
   carpools: [],
 
   lineup: [
     {
-      day: "Friday, Sept 12",
+      day: "Friday, Sept 11",
       event: "Pre-party",
       start: "6:00 PM",
       color: "#c084fc",
@@ -606,7 +606,7 @@ const TRIP = {
       ],
     },
     {
-      day: "Saturday, Sept 13",
+      day: "Saturday, Sept 12",
       event: "ABGT700",
       start: "4:00 PM",
       color: "#818cf8",
@@ -622,7 +622,7 @@ const TRIP = {
       ],
     },
     {
-      day: "Sunday, Sept 14",
+      day: "Sunday, Sept 13",
       event: "Anjunadeep Open Air",
       start: "3:00 PM",
       color: "#34d399",
@@ -641,15 +641,15 @@ const TRIP = {
 
   flights: {
     arrivals: [
-      { who: ["Jovanny", "Mauricio"], date: "Thursday, Sept 11", time: "11:30 AM", flight: "WN 2631", note: "SAN → SEA", early: false },
-      { who: ["Joobin", "Roujin"],    date: "Thursday, Sept 11", time: "3:50 PM",  flight: "WN 3983", note: "SJC → SEA", early: false },
-      { who: ["Panda"],               date: "Thursday, Sept 11", time: "9:30 PM",  flight: "TBD",     note: "Arriving early", early: true },
+      { who: ["Jovanny", "Mauricio"], date: "Friday, Sept 11",   time: "11:30 AM", flight: "WN 2631", note: "SAN → SEA", early: false },
+      { who: ["Joobin", "Roujin"],    date: "Friday, Sept 11",   time: "3:50 PM",  flight: "WN 3983", note: "SJC → SEA", early: false },
+      { who: ["Panda"],               date: "Thursday, Sept 10", time: "9:30 PM",  flight: "TBD",     note: "Arriving early", early: true },
     ],
     departures: [
-      { who: ["Joobin", "Roujin"],    date: "Sunday, Sept 14",  time: "3:40 PM", flight: "WN 1536", note: "SEA → SJC", late: false },
-      { who: ["Jovanny", "Mauricio"], date: "Sunday, Sept 14",  time: "5:50 PM", flight: "WN 3538", note: "SEA → SAN", late: false },
-      { who: ["Panda"],               date: "Tuesday, Sept 16", time: "9:00 AM", flight: "TBD",     note: "Staying extra nights", late: true },
-      { who: ["Rebekah", "Byron"],    date: "Tuesday, Sept 16", time: "5:30 PM", flight: "WN 2623", note: "SEA → SAN", late: true },
+      { who: ["Joobin", "Roujin"],    date: "Monday, Sept 14",  time: "3:40 PM", flight: "WN 1536", note: "SEA → SJC", late: false },
+      { who: ["Jovanny", "Mauricio"], date: "Monday, Sept 14",  time: "5:50 PM", flight: "WN 3538", note: "SEA → SAN", late: false },
+      { who: ["Panda"],               date: "Tuesday, Sept 15", time: "9:00 AM", flight: "TBD",     note: "Staying extra nights", late: true },
+      { who: ["Rebekah", "Byron"],    date: "Wednesday, Sept 16", time: "5:30 PM", flight: "WN 2623", note: "SEA → SAN", late: true },
     ],
   },
 
@@ -668,7 +668,7 @@ const TRIP = {
 
   schedule: [
     {
-      day: "Thursday, Sept 11 — Arrival Day",
+      day: "Thursday, Sept 10 — Arrival Day",
       items: [
         { time: "11:30 AM", desc: "Jovanny & Mauricio land", note: "WN2631 · Seattle" },
         { time: "12:00 PM", desc: "Rental car pickup", note: "SIXT Minivan · Seattle" },
@@ -677,47 +677,47 @@ const TRIP = {
       ],
     },
     {
-      day: "Friday, Sept 12 — Pre-party",
+      day: "Friday, Sept 11 — Pre-party",
       items: [
         { time: "Daytime", desc: "House check-in + supply run", note: "Costco / Trader Joe’s stop" },
         { time: "6:00 PM", desc: "Pre-party begins", note: "Above & Beyond Deep Set" },
       ],
     },
     {
-      day: "Saturday, Sept 13 — ABGT700",
+      day: "Saturday, Sept 12 — ABGT700",
       items: [
         { time: "Morning", desc: "Group breakfast", note: "" },
         { time: "4:00 PM", desc: "ABGT700 begins", note: "Above & Beyond + full lineup" },
       ],
     },
     {
-      day: "Sunday, Sept 14 — Deep Day",
+      day: "Sunday, Sept 13 — Deep Day",
       items: [
         { time: "Morning",  desc: "Slow morning", note: "" },
         { time: "3:00 PM",  desc: "Anjunadeep Open Air begins", note: "Ben Böhmer + more" },
-        { time: "3:40 PM",  desc: "Joobin & Roujin depart", note: "WN1536 · SEA → SJC" },
-        { time: "5:50 PM",  desc: "Jovanny & Mauricio depart", note: "WN3538 · SEA → SAN" },
+        { time: "3:40 PM",  desc: "Joobin & Roujin depart", note: "WN1536 · SEA → SJC (3:40 PM)" },
+        { time: "5:50 PM",  desc: "Jovanny & Mauricio depart", note: "WN3538 · SEA → SAN (5:50 PM)" },
       ],
     },
     {
-      day: "Monday, Sept 15 — Checkout",
+      day: "Monday, Sept 14 — Checkout",
       items: [
         { time: "By noon",  desc: "Check out", note: "Pack up & head out" },
         { time: "12:00 PM", desc: "Rental car return", note: "SIXT Minivan" },
       ],
     },
     {
-      day: "Tuesday, Sept 16",
+      day: "Tuesday & Wednesday, Sept 15–16",
       items: [
-        { time: "9:00 AM", desc: "Panda departs", note: "Flight TBD" },
-        { time: "5:30 PM", desc: "Rebekah & Byron depart", note: "WN2623 · SEA → SAN" },
+        { time: "Tues 9:00 AM", desc: "Panda departs", note: "Flight TBD" },
+        { time: "Wed 5:30 PM", desc: "Rebekah & Byron depart", note: "WN2623 · SEA → SAN" },
       ],
     },
   ],
 
   goodToKnow: [
-    { icon: "🕕", text: "Festival times: Fri Sept 12 @ 6 PM (pre-party) · Sat Sept 13 @ 4 PM · Sun Sept 14 @ 3 PM" },
-    { icon: "⛺", text: "Campsite opens Thursday Sept 11 at 4 PM — activities, wellbeing & afterparties." },
+    { icon: "🕕", text: "Festival times: Fri Sept 11 @ 6 PM (pre-party) · Sat Sept 12 @ 4 PM · Sun Sept 13 @ 3 PM" },
+    { icon: "⛺", text: "Campsite opens Thursday Sept 10 at 4 PM — activities, wellbeing & afterparties." },
     { icon: "🛒", text: "We’re stopping at Costco / Trader Joe’s on the way to the house to stock up together." },
     { icon: "🏡", text: "This is a private rental — be respectful of the space and neighbors." },
     { icon: "🌙", text: "It gets cold at night. Bring layers even in September." },
@@ -760,7 +760,7 @@ function buildNav() {
   brand.className = "sidebar-brand";
   brand.innerHTML = `
     <div class="sidebar-brand-name">ABGT700</div>
-    <div class="sidebar-brand-dates">Sept 12–15, 2025</div>
+    <div class="sidebar-brand-dates">Sept 11–14, 2025</div>
   `;
   sidebar.appendChild(brand);
 
