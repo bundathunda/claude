@@ -8,29 +8,141 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f7f6f4;
+      --bg: #f5f4f2;
       --surface: #ffffff;
-      --border: #e4e2de;
-      --text: #1a1917;
-      --muted: #6b6762;
-      --accent: #d97706;
-      --accent-light: #fef3c7;
-      --accent-dark: #92400e;
-      --hero-bg: #111110;
-      --hero-text: #f5f4f1;
-      --hero-sub: #a09d97;
-      --tag-bg: #f0ede8;
-      --tag-text: #44423e;
-      --early-bg: #fef9ec;
-      --early-border: #f59e0b;
+      --border: #e3e1dc;
+      --text: #181715;
+      --muted: #68655f;
+      --accent: #7c3aed;
+      --accent-light: #ede9fe;
+      --accent-dim: #c4b5fd;
+      --accent-dark: #4c1d95;
+      --hero-bg: #09090b;
+      --hero-text: #f4f3f1;
+      --hero-sub: #8b8884;
+      --tag-bg: #eeece8;
+      --tag-text: #3f3d39;
+      --sidebar-bg: #0f0f11;
+      --sidebar-text: #9d9b97;
+      --sidebar-active: #c4b5fd;
+      --sidebar-border: #1e1e22;
+      --tbd: #a1a1aa;
+
+      --day1: #c084fc;  /* pre-party — violet */
+      --day2: #818cf8;  /* ABGT700 — indigo */
+      --day3: #34d399;  /* anjunadeep — emerald */
     }
 
-    html { font-size: 16px; }
+    html { font-size: 16px; scroll-behavior: smooth; }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.5;
+    }
+
+    /* ── Sidebar (desktop) ── */
+    .sidebar {
+      display: none;
+    }
+
+    @media (min-width: 900px) {
+      body { display: flex; min-height: 100vh; }
+
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        top: 0; left: 0;
+        width: 192px;
+        height: 100vh;
+        background: var(--sidebar-bg);
+        border-right: 1px solid var(--sidebar-border);
+        overflow-y: auto;
+        z-index: 100;
+        padding: 1.5rem 0 2rem;
+      }
+
+      .sidebar-brand {
+        padding: 0 1.25rem 1.25rem;
+        border-bottom: 1px solid var(--sidebar-border);
+        margin-bottom: 1rem;
+      }
+      .sidebar-brand-name {
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent-dim);
+        line-height: 1.3;
+      }
+      .sidebar-brand-dates {
+        font-size: 0.65rem;
+        color: var(--sidebar-text);
+        margin-top: 0.2rem;
+      }
+
+      .sidebar-nav { flex: 1; }
+      .sidebar-link {
+        display: block;
+        padding: 0.45rem 1.25rem;
+        font-size: 0.775rem;
+        color: var(--sidebar-text);
+        text-decoration: none;
+        border-left: 2px solid transparent;
+        transition: color 0.15s, border-color 0.15s;
+      }
+      .sidebar-link:hover { color: #e5e3e0; }
+      .sidebar-link.active {
+        color: var(--sidebar-active);
+        border-left-color: var(--sidebar-active);
+        background: rgba(124,58,237,0.08);
+      }
+
+      .page-wrap {
+        margin-left: 192px;
+        flex: 1;
+        min-width: 0;
+      }
+    }
+
+    /* ── Mobile top nav ── */
+    .mobile-nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--sidebar-bg);
+      border-bottom: 1px solid var(--sidebar-border);
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .mobile-nav::-webkit-scrollbar { display: none; }
+    .mobile-nav-inner {
+      display: inline-flex;
+      gap: 0;
+      padding: 0 0.5rem;
+    }
+    .mobile-nav-link {
+      display: inline-block;
+      padding: 0.6rem 0.75rem;
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--sidebar-text);
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .mobile-nav-link.active {
+      color: var(--sidebar-active);
+      border-bottom-color: var(--sidebar-active);
+    }
+
+    @media (min-width: 900px) {
+      .mobile-nav { display: none; }
     }
 
     /* ── Hero ── */
@@ -41,15 +153,15 @@
       text-align: center;
     }
     .hero-eyebrow {
-      font-size: 0.7rem;
-      letter-spacing: 0.15em;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--accent-dim);
       font-weight: 600;
       margin-bottom: 0.75rem;
     }
     .hero h1 {
-      font-size: clamp(1.6rem, 5vw, 2.6rem);
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
       font-weight: 700;
       line-height: 1.15;
       letter-spacing: -0.02em;
@@ -58,19 +170,26 @@
     .hero-dates {
       font-size: 1rem;
       color: var(--hero-sub);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.35rem;
     }
-    .hero-location {
-      font-size: 0.875rem;
-      color: var(--hero-sub);
+    .hero-airbnb {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: 0.5rem;
+      font-size: 0.775rem;
+      color: var(--accent-dim);
+      text-decoration: none;
+      opacity: 0.85;
+      transition: opacity 0.15s;
     }
-    .hero-location::before { content: "📍 "; }
+    .hero-airbnb:hover { opacity: 1; }
     .hero-pill {
       display: inline-block;
       margin-top: 1.4rem;
-      background: rgba(217,119,6,0.18);
-      color: #fbbf24;
-      border: 1px solid rgba(217,119,6,0.35);
+      background: rgba(124,58,237,0.2);
+      color: #c4b5fd;
+      border: 1px solid rgba(124,58,237,0.4);
       border-radius: 99px;
       padding: 0.3rem 1rem;
       font-size: 0.78rem;
@@ -80,19 +199,20 @@
 
     /* ── Layout ── */
     .container {
-      max-width: 680px;
+      max-width: 700px;
       margin: 0 auto;
-      padding: 0 1rem 4rem;
+      padding: 0 1rem 5rem;
     }
 
     section {
-      margin-top: 2.5rem;
+      margin-top: 2.75rem;
+      scroll-margin-top: 3rem;
     }
 
     .section-title {
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 0.875rem;
@@ -158,10 +278,6 @@
       font-size: 0.78rem;
       font-weight: 500;
     }
-    .chip.accent {
-      background: var(--accent-light);
-      color: var(--accent-dark);
-    }
 
     /* ── Rooms ── */
     .room-grid {
@@ -179,9 +295,9 @@
       padding: 0.9rem 1rem;
     }
     .room-name {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 700;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.07em;
       text-transform: uppercase;
       color: var(--muted);
       margin-bottom: 0.25rem;
@@ -193,23 +309,84 @@
       margin-bottom: 0.3rem;
     }
     .room-capacity {
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       color: var(--muted);
       margin-bottom: 0.6rem;
     }
     .room-occupants {
-      font-size: 0.78rem;
+      font-size: 0.775rem;
       color: var(--muted);
-      font-style: italic;
     }
     .room-occupants .name-list {
       color: var(--text);
-      font-style: normal;
       font-weight: 500;
     }
-    .tbd {
-      color: #9ca3af;
-      font-style: italic;
+    .tbd { color: var(--tbd); font-style: italic; }
+
+    /* ── Lineup ── */
+    .lineup-day {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+    }
+    .lineup-header {
+      padding: 0.75rem 1rem 0.65rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .lineup-header-left {}
+    .lineup-event-name {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .lineup-day-label {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.1rem;
+    }
+    .lineup-start {
+      font-size: 0.7rem;
+      font-weight: 600;
+      font-family: ui-monospace, "SF Mono", monospace;
+      padding: 0.2rem 0.55rem;
+      border-radius: 99px;
+      white-space: nowrap;
+    }
+    .lineup-act {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .lineup-act:last-child { border-bottom: none; }
+    .lineup-act-name {
+      font-size: 0.84rem;
+      color: var(--text);
+      font-weight: 400;
+    }
+    .lineup-act.headliner .lineup-act-name {
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+    .lineup-act-note {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+      background: var(--tag-bg);
+      color: var(--muted);
+    }
+    .lineup-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
     }
 
     /* ── Flights ── */
@@ -225,19 +402,19 @@
       font-family: ui-monospace, "SF Mono", monospace;
     }
     .flight-badge.tbd-badge {
-      color: #9ca3af;
-      background: #f3f4f6;
+      color: var(--tbd);
+      background: #f4f4f5;
     }
-    .early-flag {
+    .flag {
       display: inline-block;
       margin-left: 0.4rem;
-      font-size: 0.68rem;
-      background: var(--early-bg);
+      font-size: 0.66rem;
+      background: #fef9ec;
       color: #92400e;
       border: 1px solid #f59e0b;
       border-radius: 4px;
       padding: 0.05rem 0.35rem;
-      font-weight: 600;
+      font-weight: 700;
       vertical-align: middle;
     }
 
@@ -251,23 +428,23 @@
     }
     .schedule-day-header {
       background: var(--tag-bg);
-      padding: 0.55rem 1rem;
-      font-size: 0.72rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.68rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--muted);
     }
     .schedule-item {
       display: flex;
       gap: 0.75rem;
-      padding: 0.7rem 1rem;
+      padding: 0.65rem 1rem;
       border-bottom: 1px solid var(--border);
       align-items: flex-start;
     }
     .schedule-item:last-child { border-bottom: none; }
     .schedule-time {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 600;
       color: var(--muted);
       white-space: nowrap;
@@ -275,26 +452,19 @@
       padding-top: 0.1rem;
       font-family: ui-monospace, "SF Mono", monospace;
     }
-    .schedule-desc {
-      font-size: 0.85rem;
-      color: var(--text);
-    }
-    .schedule-note {
-      font-size: 0.75rem;
-      color: var(--muted);
-      margin-top: 0.15rem;
-    }
+    .schedule-desc { font-size: 0.84rem; color: var(--text); }
+    .schedule-note { font-size: 0.73rem; color: var(--muted); margin-top: 0.12rem; }
 
     /* ── Money ── */
     .money-highlight {
       background: var(--accent-light);
-      border: 1px solid #fde68a;
+      border: 1px solid #ddd6fe;
       border-radius: 10px;
       padding: 1rem 1.1rem;
       margin-bottom: 0.75rem;
     }
     .money-highlight .amount {
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       font-weight: 700;
       color: var(--accent-dark);
       letter-spacing: -0.02em;
@@ -304,13 +474,13 @@
       color: var(--accent-dark);
       margin-top: 0.1rem;
     }
-    .money-highlight .total {
-      font-size: 0.75rem;
-      color: #a16207;
+    .money-highlight .money-meta {
+      font-size: 0.73rem;
+      color: #6d28d9;
       margin-top: 0.25rem;
     }
 
-    /* ── Good to Know ── */
+    /* ── Good to Know / Bring ── */
     .know-list {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -320,15 +490,14 @@
     .know-item {
       display: flex;
       gap: 0.75rem;
-      padding: 0.8rem 1rem;
+      padding: 0.75rem 1rem;
       border-bottom: 1px solid var(--border);
       align-items: flex-start;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
     }
     .know-item:last-child { border-bottom: none; }
     .know-icon { flex-shrink: 0; font-size: 1rem; }
 
-    /* ── What to Bring ── */
     .bring-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -357,14 +526,32 @@
       padding: 1.2rem 1rem;
       text-align: center;
       color: var(--muted);
-      font-size: 0.85rem;
+      font-size: 0.84rem;
     }
-    .carpool-tbd strong { display: block; color: var(--text); font-size: 0.9rem; margin-bottom: 0.3rem; }
+    .carpool-tbd strong { display: block; color: var(--text); font-size: 0.875rem; margin-bottom: 0.25rem; }
+
+    /* ── Airbnb callout ── */
+    .airbnb-callout {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      margin-top: 0.75rem;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.15s;
+    }
+    .airbnb-callout:hover { border-color: var(--accent-dim); }
+    .airbnb-callout-text { font-size: 0.82rem; color: var(--muted); }
+    .airbnb-callout-label { font-size: 0.84rem; font-weight: 600; color: var(--text); margin-bottom: 0.1rem; }
 
     footer {
       text-align: center;
       padding: 2rem 1rem 3rem;
-      font-size: 0.75rem;
+      font-size: 0.73rem;
       color: var(--muted);
     }
   </style>
@@ -377,28 +564,73 @@
 // ─────────────────────────────────────────────
 const TRIP = {
   name: "Above & Beyond Group Therapy 700",
-  location: "Big Bear, CA",
   checkin:  "Friday, Sept 12, 2025",
   checkout: "Monday, Sept 15, 2025",
   nights: 3,
+  airbnb: "https://airbnb.com/rooms/53256234",
+
   guests: [
     "Byron", "Rebekah", "Brandon", "Jovanny",
     "Mauricio", "Joobin", "Roujin", "Panda", "Phillip"
   ],
 
   rooms: [
-    { id: "Room 1",       bed: "1 Double Bed",                 max: 2, occupants: [] },
-    { id: "Room 2",       bed: "1 King Bed",                   max: 2, occupants: [] },
-    { id: "Room 3",       bed: "Double + Single + Bunk Bed",   max: 5, occupants: [] },
-    { id: "Room 4",       bed: "1 King Bed",                   max: 2, occupants: [] },
-    { id: "Room 5",       bed: "1 King Bed",                   max: 2, occupants: [] },
-    { id: "Living Room",  bed: "Couch",                        max: 1, occupants: [] },
+    { id: "Room 1",       bed: "1 Double Bed",               max: 2, occupants: [] },
+    { id: "Room 2",       bed: "1 King Bed",                 max: 2, occupants: [] },
+    { id: "Room 3",       bed: "Double + Single + Bunk Bed", max: 5, occupants: [] },
+    { id: "Room 4",       bed: "1 King Bed",                 max: 2, occupants: [] },
+    { id: "Room 5",       bed: "1 King Bed",                 max: 2, occupants: [] },
+    { id: "Living Room",  bed: "Couch",                      max: 1, occupants: [] },
   ],
 
-  // carpools: set driver, departure, passengers when known
   carpools: [
-    // Example (uncomment and fill in when ready):
     // { driver: "Brandon", departure: "Friday 9:00 AM", from: "Los Angeles", passengers: ["Jovanny", "Phillip"] },
+  ],
+
+  lineup: [
+    {
+      day: "Friday, Sept 11",
+      event: "Pre-party",
+      start: "6:00 PM",
+      color: "#c084fc",
+      acts: [
+        { name: "Above & Beyond", note: "Deep Set", headliner: true },
+        { name: "Amy Wiles" },
+        { name: "Grum b2b J Ribbon" },
+      ],
+    },
+    {
+      day: "Saturday, Sept 12",
+      event: "ABGT700",
+      start: "4:00 PM",
+      color: "#818cf8",
+      acts: [
+        { name: "Above & Beyond", headliner: true },
+        { name: "Darren Tate", note: "Live" },
+        { name: "Grum", note: "Live" },
+        { name: "ilan Bluestone" },
+        { name: "J Ribbon" },
+        { name: "Mat Zo" },
+        { name: "Nourey" },
+        { name: "Oliver Smith" },
+      ],
+    },
+    {
+      day: "Sunday, Sept 13",
+      event: "Anjunadeep Open Air",
+      start: "3:00 PM",
+      color: "#34d399",
+      acts: [
+        { name: "Because Of Art" },
+        { name: "Ben Böhmer", headliner: true },
+        { name: "Durante b2b Ezequiel Arias" },
+        { name: "HANA" },
+        { name: "James Grant & Jody Wisternoff" },
+        { name: "Leaving Laurel" },
+        { name: "Marsh" },
+        { name: "Rezident" },
+      ],
+    },
   ],
 
   flights: {
@@ -453,7 +685,7 @@ const TRIP = {
     perPerson: "$268",
     guestCount: 9,
     payTo: "Byron (Venmo)",
-    payWhen: "After the trip",
+    payWhen: "Before the trip — to hold your spot",
     notes: [
       { icon: "🛒", label: "Groceries", detail: "Group split · family-style meals" },
       { icon: "🍺", label: "Alcohol", detail: "BYOB — not included in food split" },
@@ -487,32 +719,34 @@ const TRIP = {
     {
       day: "Sunday, Sept 14",
       items: [
-        { time: "Morning",   desc: "Slow morning", note: "" },
-        { time: "By noon",   desc: "Check out", note: "Pack up & head out" },
+        { time: "Morning",  desc: "Slow morning", note: "" },
+        { time: "By noon",  desc: "Check out", note: "Pack up & head out" },
       ],
     },
     {
       day: "Monday, Sept 15",
       items: [
-        { time: "3:40 PM",   desc: "Joobin & Roujin depart Seattle", note: "Flight TBD" },
+        { time: "3:40 PM",  desc: "Joobin & Roujin depart Seattle", note: "Flight TBD" },
       ],
     },
     {
       day: "Tuesday, Sept 16",
       items: [
-        { time: "9:00 AM",   desc: "Panda departs", note: "Flight TBD" },
+        { time: "9:00 AM",  desc: "Panda departs", note: "Flight TBD" },
       ],
     },
   ],
 
   goodToKnow: [
+    { icon: "🕕", text: "Festival starts: Fri Sept 11 @ 6 PM · Sat Sept 12 @ 4 PM · Sun Sept 13 @ 3 PM" },
+    { icon: "⛺", text: "Campsite opens Thursday Sept 10 at 4 PM — activities, wellbeing & afterparties." },
     { icon: "🏡", text: "This is a private rental — be respectful of the space and neighbors." },
     { icon: "🌙", text: "It gets cold at night. Bring layers even in September." },
     { icon: "🛏️", text: "Room 3 sleepers: bring a pillow and sleeping bag if you want." },
-    { icon: "💸", text: "Venmo Byron for your share after the trip wraps up." },
+    { icon: "💸", text: "Venmo Byron before the trip to hold your spot." },
     { icon: "🥾", text: "Hiking shoes are optional but the trails are worth it." },
     { icon: "🌞", text: "High altitude = stronger sun. Sunscreen is not optional." },
-    { icon: "📶", text: "Cell service can be spotty in the mountains — download offline maps." },
+    { icon: "📶", text: "Cell service can be spotty — download offline maps before you go." },
     { icon: "🍻", text: "BYOB — stock up before you arrive. Bring what you drink." },
   ],
 
@@ -531,11 +765,80 @@ const TRIP = {
 //  END TRIP DATA
 // ─────────────────────────────────────────────
 
+const NAV = [
+  { id: "guests",   label: "Guests" },
+  { id: "rooms",    label: "Rooms" },
+  { id: "lineup",   label: "Lineup" },
+  { id: "flights",  label: "Flights" },
+  { id: "carpools", label: "Carpools" },
+  { id: "money",    label: "Money" },
+  { id: "schedule", label: "Schedule" },
+  { id: "know",     label: "Good to Know" },
+  { id: "bring",    label: "What to Bring" },
+];
+
+function buildNav() {
+  // Sidebar (desktop)
+  const sidebar = document.getElementById("sidebar");
+  const brand = document.createElement("div");
+  brand.className = "sidebar-brand";
+  brand.innerHTML = `
+    <div class="sidebar-brand-name">ABGT700</div>
+    <div class="sidebar-brand-dates">Sept 12–15, 2025</div>
+  `;
+  sidebar.appendChild(brand);
+
+  const nav = document.createElement("nav");
+  nav.className = "sidebar-nav";
+  NAV.forEach(item => {
+    const a = document.createElement("a");
+    a.className = "sidebar-link";
+    a.href = `#${item.id}`;
+    a.textContent = item.label;
+    a.dataset.section = item.id;
+    nav.appendChild(a);
+  });
+  sidebar.appendChild(nav);
+
+  // Mobile nav
+  const mobileInner = document.getElementById("mobile-nav-inner");
+  NAV.forEach(item => {
+    const a = document.createElement("a");
+    a.className = "mobile-nav-link";
+    a.href = `#${item.id}`;
+    a.textContent = item.label;
+    a.dataset.section = item.id;
+    mobileInner.appendChild(a);
+  });
+}
+
+function initScrollSpy() {
+  const sections = NAV.map(n => document.getElementById(n.id)).filter(Boolean);
+  const allLinks = document.querySelectorAll("[data-section]");
+
+  const setActive = (id) => {
+    allLinks.forEach(l => l.classList.toggle("active", l.dataset.section === id));
+    // scroll mobile active link into view
+    const activeLink = document.querySelector(`.mobile-nav-link[data-section="${id}"]`);
+    if (activeLink) activeLink.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  };
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) setActive(entry.target.id);
+    });
+  }, { rootMargin: "-30% 0px -60% 0px", threshold: 0 });
+
+  sections.forEach(s => obs.observe(s));
+}
+
 function render() {
-  document.getElementById("hero-name").textContent    = TRIP.name;
-  document.getElementById("hero-dates").textContent   = `${TRIP.checkin} → ${TRIP.checkout}`;
-  document.getElementById("hero-loc").textContent     = TRIP.location;
-  document.getElementById("hero-pill").textContent    = `${TRIP.nights} nights · ${TRIP.guests.length} guests`;
+  // Hero
+  document.getElementById("hero-name").textContent  = TRIP.name;
+  document.getElementById("hero-dates").textContent = `${TRIP.checkin} → ${TRIP.checkout}`;
+  document.getElementById("hero-pill").textContent  = `${TRIP.nights} nights · ${TRIP.guests.length} guests`;
+  const airbnbLink = document.getElementById("hero-airbnb");
+  airbnbLink.href = TRIP.airbnb;
 
   // Guests
   const guestWrap = document.getElementById("guests-chips");
@@ -563,6 +866,39 @@ function render() {
     roomGrid.appendChild(card);
   });
 
+  // Airbnb link under rooms
+  const airbnbCallout = document.getElementById("airbnb-callout");
+  airbnbCallout.href = TRIP.airbnb;
+
+  // Lineup
+  const lineupWrap = document.getElementById("lineup-wrap");
+  TRIP.lineup.forEach(day => {
+    const block = document.createElement("div");
+    block.className = "lineup-day";
+    const startStyle = `background:${day.color}22;color:${day.color};border:1px solid ${day.color}55;`;
+    let html = `
+      <div class="lineup-header">
+        <div class="lineup-header-left">
+          <div class="lineup-event-name">${day.event}</div>
+          <div class="lineup-day-label">${day.day}</div>
+        </div>
+        <div class="lineup-start" style="${startStyle}">Doors ${day.start}</div>
+      </div>
+    `;
+    day.acts.forEach(act => {
+      const note = act.note ? `<span class="lineup-act-note">${act.note}</span>` : "";
+      html += `
+        <div class="lineup-act${act.headliner ? " headliner" : ""}">
+          <div class="lineup-dot" style="background:${day.color}"></div>
+          <div class="lineup-act-name">${act.name}</div>
+          ${note}
+        </div>
+      `;
+    });
+    block.innerHTML = html;
+    lineupWrap.appendChild(block);
+  });
+
   // Flights — arrivals
   const arrWrap = document.getElementById("arrivals");
   TRIP.flights.arrivals.forEach(f => {
@@ -571,7 +907,7 @@ function render() {
     const badge = f.flight === "TBD"
       ? `<span class="flight-badge tbd-badge">TBD</span>`
       : `<span class="flight-badge">${f.flight}</span>`;
-    const flag = f.early ? `<span class="early-flag">Early</span>` : "";
+    const flag = f.early ? `<span class="flag">Early</span>` : "";
     row.innerHTML = `
       <div class="card-icon">✈️</div>
       <div class="card-body">
@@ -591,7 +927,7 @@ function render() {
     const badge = f.flight === "TBD"
       ? `<span class="flight-badge tbd-badge">TBD</span>`
       : `<span class="flight-badge">${f.flight}</span>`;
-    const flag = f.late ? `<span class="early-flag">Late</span>` : "";
+    const flag = f.late ? `<span class="flag">Late</span>` : "";
     row.innerHTML = `
       <div class="card-icon">🛫</div>
       <div class="card-body">
@@ -633,9 +969,8 @@ function render() {
 
   // Money
   document.getElementById("money-amount").textContent = TRIP.money.perPerson;
-  document.getElementById("money-per").textContent    = "per person";
-  document.getElementById("money-total").textContent  = `Total rental: ${TRIP.money.totalRental} ÷ ${TRIP.money.guestCount} guests`;
-  document.getElementById("money-payto").textContent  = `Pay: ${TRIP.money.payTo} · ${TRIP.money.payWhen}`;
+  document.getElementById("money-total").textContent  = `Total: ${TRIP.money.totalRental} ÷ ${TRIP.money.guestCount} guests`;
+  document.getElementById("money-payto").textContent  = `Venmo ${TRIP.money.payTo} · ${TRIP.money.payWhen}`;
 
   const moneyCard = document.getElementById("money-notes");
   TRIP.money.notes.forEach(n => {
@@ -691,82 +1026,112 @@ function render() {
   });
 }
 
-document.addEventListener("DOMContentLoaded", render);
+document.addEventListener("DOMContentLoaded", () => {
+  buildNav();
+  render();
+  initScrollSpy();
+});
 </script>
 
-<!-- ── Hero ── -->
-<header class="hero">
-  <div class="hero-eyebrow">Group Getaway · ABGT700 · Sept 2025</div>
-  <h1 id="hero-name"></h1>
-  <div class="hero-dates" id="hero-dates"></div>
-  <div class="hero-location" id="hero-loc"></div>
-  <div class="hero-pill" id="hero-pill"></div>
-</header>
+<!-- ── Sidebar ── -->
+<aside class="sidebar" id="sidebar"></aside>
 
-<div class="container">
+<div class="page-wrap">
 
-  <!-- Guests -->
-  <section>
-    <div class="section-title">Guests</div>
-    <div class="chips" id="guests-chips"></div>
-  </section>
+  <!-- ── Mobile nav ── -->
+  <nav class="mobile-nav">
+    <div class="mobile-nav-inner" id="mobile-nav-inner"></div>
+  </nav>
 
-  <!-- Rooms -->
-  <section>
-    <div class="section-title">Rooms</div>
-    <div class="room-grid" id="room-grid"></div>
-  </section>
+  <!-- ── Hero ── -->
+  <header class="hero">
+    <div class="hero-eyebrow">Group Getaway · ABGT700 · Sept 2025</div>
+    <h1 id="hero-name"></h1>
+    <div class="hero-dates" id="hero-dates"></div>
+    <a class="hero-airbnb" id="hero-airbnb" href="#" target="_blank" rel="noopener">
+      🏡 View Airbnb Listing
+    </a>
+    <div><span class="hero-pill" id="hero-pill"></span></div>
+  </header>
 
-  <!-- Flights -->
-  <section>
-    <div class="section-title">Flights</div>
-    <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">Arrivals</div>
-    <div class="card" id="arrivals"></div>
-    <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-top:0.9rem;margin-bottom:0.4rem;">Departures</div>
-    <div class="card" id="departures"></div>
-  </section>
+  <div class="container">
 
-  <!-- Carpools -->
-  <section>
-    <div class="section-title">Carpools</div>
-    <div id="carpools-content"></div>
-  </section>
+    <!-- Guests -->
+    <section id="guests">
+      <div class="section-title">Guests</div>
+      <div class="chips" id="guests-chips"></div>
+    </section>
 
-  <!-- Money -->
-  <section>
-    <div class="section-title">Money</div>
-    <div class="money-highlight">
-      <div class="amount" id="money-amount"></div>
-      <div class="per-person" id="money-per"></div>
-      <div class="total" id="money-total"></div>
-      <div class="total" id="money-payto"></div>
-    </div>
-    <div class="card" id="money-notes"></div>
-  </section>
+    <!-- Rooms -->
+    <section id="rooms">
+      <div class="section-title">Rooms</div>
+      <div class="room-grid" id="room-grid"></div>
+      <a class="airbnb-callout" id="airbnb-callout" href="#" target="_blank" rel="noopener">
+        <span style="font-size:1.2rem">🏡</span>
+        <div>
+          <div class="airbnb-callout-label">View the Airbnb listing</div>
+          <div class="airbnb-callout-text">Photos, amenities & full house details</div>
+        </div>
+      </a>
+    </section>
 
-  <!-- Weekend Schedule -->
-  <section>
-    <div class="section-title">Weekend Schedule</div>
-    <div id="schedule-wrap"></div>
-  </section>
+    <!-- Lineup -->
+    <section id="lineup">
+      <div class="section-title">Lineup</div>
+      <div id="lineup-wrap"></div>
+    </section>
 
-  <!-- Good to Know -->
-  <section>
-    <div class="section-title">Good to Know</div>
-    <div class="know-list" id="know-list"></div>
-  </section>
+    <!-- Flights -->
+    <section id="flights">
+      <div class="section-title">Flights</div>
+      <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">Arrivals</div>
+      <div class="card" id="arrivals"></div>
+      <div style="font-size:0.68rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-top:0.9rem;margin-bottom:0.4rem;">Departures</div>
+      <div class="card" id="departures"></div>
+    </section>
 
-  <!-- What to Bring -->
-  <section>
-    <div class="section-title">What to Bring</div>
-    <div class="bring-grid" id="bring-grid"></div>
-  </section>
+    <!-- Carpools -->
+    <section id="carpools">
+      <div class="section-title">Carpools</div>
+      <div id="carpools-content"></div>
+    </section>
+
+    <!-- Money -->
+    <section id="money">
+      <div class="section-title">Money</div>
+      <div class="money-highlight">
+        <div class="amount" id="money-amount"></div>
+        <div class="per-person">per person</div>
+        <div class="money-meta" id="money-total"></div>
+        <div class="money-meta" id="money-payto"></div>
+      </div>
+      <div class="card" id="money-notes"></div>
+    </section>
+
+    <!-- Weekend Schedule -->
+    <section id="schedule">
+      <div class="section-title">Weekend Schedule</div>
+      <div id="schedule-wrap"></div>
+    </section>
+
+    <!-- Good to Know -->
+    <section id="know">
+      <div class="section-title">Good to Know</div>
+      <div class="know-list" id="know-list"></div>
+    </section>
+
+    <!-- What to Bring -->
+    <section id="bring">
+      <div class="section-title">What to Bring</div>
+      <div class="bring-grid" id="bring-grid"></div>
+    </section>
+
+  </div>
+
+  <footer>
+    Above &amp; Beyond Group Therapy 700 · Sept 2025
+  </footer>
 
 </div>
-
-<footer>
-  Above &amp; Beyond Group Therapy 700 · Sept 2025
-</footer>
-
 </body>
 </html>
