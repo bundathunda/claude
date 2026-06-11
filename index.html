@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Above & Beyond Group Therapy 700 · Big Bear 2025</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f6f4;
+      --surface: #ffffff;
+      --border: #e4e2de;
+      --text: #1a1917;
+      --muted: #6b6762;
+      --accent: #d97706;
+      --accent-light: #fef3c7;
+      --accent-dark: #92400e;
+      --hero-bg: #111110;
+      --hero-text: #f5f4f1;
+      --hero-sub: #a09d97;
+      --tag-bg: #f0ede8;
+      --tag-text: #44423e;
+      --early-bg: #fef9ec;
+      --early-border: #f59e0b;
+    }
+
+    html { font-size: 16px; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      background: var(--hero-bg);
+      color: var(--hero-text);
+      padding: 3.5rem 1.25rem 3rem;
+      text-align: center;
+    }
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.6rem, 5vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .hero-dates {
+      font-size: 1rem;
+      color: var(--hero-sub);
+      margin-bottom: 0.4rem;
+    }
+    .hero-location {
+      font-size: 0.875rem;
+      color: var(--hero-sub);
+    }
+    .hero-location::before { content: "📍 "; }
+    .hero-pill {
+      display: inline-block;
+      margin-top: 1.4rem;
+      background: rgba(217,119,6,0.18);
+      color: #fbbf24;
+      border: 1px solid rgba(217,119,6,0.35);
+      border-radius: 99px;
+      padding: 0.3rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Layout ── */
+    .container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 0 1rem 4rem;
+    }
+
+    section {
+      margin-top: 2.5rem;
+    }
+
+    .section-title {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.875rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .card + .card { margin-top: 0.75rem; }
+
+    .card-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .card-row:last-child { border-bottom: none; }
+
+    .card-icon {
+      font-size: 1rem;
+      flex-shrink: 0;
+      width: 1.5rem;
+      text-align: center;
+      margin-top: 0.1rem;
+    }
+    .card-body { flex: 1; min-width: 0; }
+    .card-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.15rem;
+    }
+    .card-sub {
+      font-size: 0.775rem;
+      color: var(--muted);
+    }
+    .card-aside {
+      font-size: 0.75rem;
+      color: var(--muted);
+      flex-shrink: 0;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    /* ── Guest chips ── */
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .chip {
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border-radius: 99px;
+      padding: 0.25rem 0.7rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+    }
+    .chip.accent {
+      background: var(--accent-light);
+      color: var(--accent-dark);
+    }
+
+    /* ── Rooms ── */
+    .room-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    @media (max-width: 420px) {
+      .room-grid { grid-template-columns: 1fr; }
+    }
+    .room-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+    }
+    .room-name {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+    .room-bed {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+    .room-capacity {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+    .room-occupants {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+    .room-occupants .name-list {
+      color: var(--text);
+      font-style: normal;
+      font-weight: 500;
+    }
+    .tbd {
+      color: #9ca3af;
+      font-style: italic;
+    }
+
+    /* ── Flights ── */
+    .flight-badge {
+      display: inline-block;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border-radius: 4px;
+      padding: 0.1rem 0.45rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      font-family: ui-monospace, "SF Mono", monospace;
+    }
+    .flight-badge.tbd-badge {
+      color: #9ca3af;
+      background: #f3f4f6;
+    }
+    .early-flag {
+      display: inline-block;
+      margin-left: 0.4rem;
+      font-size: 0.68rem;
+      background: var(--early-bg);
+      color: #92400e;
+      border: 1px solid #f59e0b;
+      border-radius: 4px;
+      padding: 0.05rem 0.35rem;
+      font-weight: 600;
+      vertical-align: middle;
+    }
+
+    /* ── Schedule ── */
+    .schedule-day {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 0.75rem;
+      overflow: hidden;
+    }
+    .schedule-day-header {
+      background: var(--tag-bg);
+      padding: 0.55rem 1rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .schedule-item {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.7rem 1rem;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+    }
+    .schedule-item:last-child { border-bottom: none; }
+    .schedule-time {
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: var(--muted);
+      white-space: nowrap;
+      min-width: 3.5rem;
+      padding-top: 0.1rem;
+      font-family: ui-monospace, "SF Mono", monospace;
+    }
+    .schedule-desc {
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+    .schedule-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    /* ── Money ── */
+    .money-highlight {
+      background: var(--accent-light);
+      border: 1px solid #fde68a;
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+      margin-bottom: 0.75rem;
+    }
+    .money-highlight .amount {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent-dark);
+      letter-spacing: -0.02em;
+    }
+    .money-highlight .per-person {
+      font-size: 0.8rem;
+      color: var(--accent-dark);
+      margin-top: 0.1rem;
+    }
+    .money-highlight .total {
+      font-size: 0.75rem;
+      color: #a16207;
+      margin-top: 0.25rem;
+    }
+
+    /* ── Good to Know ── */
+    .know-list {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .know-item {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.8rem 1rem;
+      border-bottom: 1px solid var(--border);
+      align-items: flex-start;
+      font-size: 0.85rem;
+    }
+    .know-item:last-child { border-bottom: none; }
+    .know-icon { flex-shrink: 0; font-size: 1rem; }
+
+    /* ── What to Bring ── */
+    .bring-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+    }
+    @media (max-width: 380px) {
+      .bring-grid { grid-template-columns: 1fr; }
+    }
+    .bring-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.6rem 0.85rem;
+      font-size: 0.82rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    .bring-icon { font-size: 0.95rem; }
+
+    /* ── Carpool ── */
+    .carpool-tbd {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    .carpool-tbd strong { display: block; color: var(--text); font-size: 0.9rem; margin-bottom: 0.3rem; }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem 3rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+
+<script>
+// ─────────────────────────────────────────────
+//  TRIP DATA — edit this object to update the page
+// ─────────────────────────────────────────────
+const TRIP = {
+  name: "Above & Beyond Group Therapy 700",
+  location: "Big Bear, CA",
+  checkin:  "Friday, Sept 12, 2025",
+  checkout: "Monday, Sept 15, 2025",
+  nights: 3,
+  guests: [
+    "Byron", "Rebekah", "Brandon", "Jovanny",
+    "Mauricio", "Joobin", "Roujin", "Panda", "Phillip"
+  ],
+
+  rooms: [
+    { id: "Room 1",       bed: "1 Double Bed",                 max: 2, occupants: [] },
+    { id: "Room 2",       bed: "1 King Bed",                   max: 2, occupants: [] },
+    { id: "Room 3",       bed: "Double + Single + Bunk Bed",   max: 5, occupants: [] },
+    { id: "Room 4",       bed: "1 King Bed",                   max: 2, occupants: [] },
+    { id: "Room 5",       bed: "1 King Bed",                   max: 2, occupants: [] },
+    { id: "Living Room",  bed: "Couch",                        max: 1, occupants: [] },
+  ],
+
+  // carpools: set driver, departure, passengers when known
+  carpools: [
+    // Example (uncomment and fill in when ready):
+    // { driver: "Brandon", departure: "Friday 9:00 AM", from: "Los Angeles", passengers: ["Jovanny", "Phillip"] },
+  ],
+
+  flights: {
+    arrivals: [
+      {
+        who: ["Panda"],
+        date: "Thursday, Sept 11",
+        time: "9:30 PM",
+        flight: "TBD",
+        note: "Arriving early",
+        early: true,
+      },
+      {
+        who: ["Byron", "Rebekah", "Mauricio"],
+        date: "Friday, Sept 12",
+        time: "11:30 AM",
+        flight: "WN 2631",
+        note: "Arriving Seattle",
+        early: false,
+      },
+      {
+        who: ["Joobin", "Roujin"],
+        date: "Friday, Sept 12",
+        time: "3:50 PM",
+        flight: "TBD",
+        note: "Arriving Seattle",
+        early: false,
+      },
+    ],
+    departures: [
+      {
+        who: ["Joobin", "Roujin"],
+        date: "Monday, Sept 15",
+        time: "3:40 PM",
+        flight: "TBD",
+        note: "Departing Seattle",
+        late: false,
+      },
+      {
+        who: ["Panda"],
+        date: "Tuesday, Sept 16",
+        time: "9:00 AM",
+        flight: "TBD",
+        note: "Departing — staying extra night",
+        late: true,
+      },
+    ],
+  },
+
+  money: {
+    totalRental: "$2,415.41",
+    perPerson: "$268",
+    guestCount: 9,
+    payTo: "Byron (Venmo)",
+    payWhen: "After the trip",
+    notes: [
+      { icon: "🛒", label: "Groceries", detail: "Group split · family-style meals" },
+      { icon: "🍺", label: "Alcohol", detail: "BYOB — not included in food split" },
+      { icon: "⛽", label: "Gas", detail: "Between driver and passengers only" },
+    ],
+  },
+
+  schedule: [
+    {
+      day: "Thursday, Sept 11",
+      items: [
+        { time: "9:30 PM", desc: "Panda arrives", note: "Early arrival ✈" },
+      ],
+    },
+    {
+      day: "Friday, Sept 12 — Check-in Day",
+      items: [
+        { time: "11:30 AM", desc: "Byron, Rebekah, Mauricio land", note: "WN 2631 · Seattle" },
+        { time: "3:50 PM",  desc: "Joobin & Roujin land", note: "Seattle" },
+        { time: "Evening",  desc: "Everyone checks in", note: "Get settled, explore the house" },
+      ],
+    },
+    {
+      day: "Saturday, Sept 13",
+      items: [
+        { time: "Morning",   desc: "Group breakfast", note: "" },
+        { time: "Afternoon", desc: "Activities TBD", note: "Hike · Lake · Big Bear Village" },
+        { time: "Evening",   desc: "Group dinner", note: "" },
+      ],
+    },
+    {
+      day: "Sunday, Sept 14",
+      items: [
+        { time: "Morning",   desc: "Slow morning", note: "" },
+        { time: "By noon",   desc: "Check out", note: "Pack up & head out" },
+      ],
+    },
+    {
+      day: "Monday, Sept 15",
+      items: [
+        { time: "3:40 PM",   desc: "Joobin & Roujin depart Seattle", note: "Flight TBD" },
+      ],
+    },
+    {
+      day: "Tuesday, Sept 16",
+      items: [
+        { time: "9:00 AM",   desc: "Panda departs", note: "Flight TBD" },
+      ],
+    },
+  ],
+
+  goodToKnow: [
+    { icon: "🏡", text: "This is a private rental — be respectful of the space and neighbors." },
+    { icon: "🌙", text: "Big Bear gets cold at night. Bring layers even in September." },
+    { icon: "🛏️", text: "Room 3 sleepers: bring a pillow and sleeping bag if you want." },
+    { icon: "💸", text: "Venmo Byron for your share after the trip wraps up." },
+    { icon: "🥾", text: "Hiking shoes are optional but the trails are worth it." },
+    { icon: "🌞", text: "High altitude = stronger sun. Sunscreen is not optional." },
+    { icon: "📶", text: "Cell service can be spotty in the mountains — download offline maps." },
+    { icon: "🍻", text: "BYOB — stock up before heading up the mountain. Bring what you drink." },
+  ],
+
+  whatToBring: [
+    { icon: "🧥", item: "Layers / warm clothes" },
+    { icon: "🍺", item: "Your own drinks (BYOB)" },
+    { icon: "🛏️", item: "Pillow + sleeping bag (Room 3)" },
+    { icon: "🥾", item: "Hiking shoes (optional)" },
+    { icon: "🕶️", item: "Sunscreen + sunglasses" },
+    { icon: "✨", item: "Good energy" },
+    { icon: "💳", item: "Venmo ready" },
+    { icon: "🗺️", item: "Offline maps downloaded" },
+  ],
+};
+// ─────────────────────────────────────────────
+//  END TRIP DATA
+// ─────────────────────────────────────────────
+
+function render() {
+  document.getElementById("hero-name").textContent    = TRIP.name;
+  document.getElementById("hero-dates").textContent   = `${TRIP.checkin} → ${TRIP.checkout}`;
+  document.getElementById("hero-loc").textContent     = TRIP.location;
+  document.getElementById("hero-pill").textContent    = `${TRIP.nights} nights · ${TRIP.guests.length} guests`;
+
+  // Guests
+  const guestWrap = document.getElementById("guests-chips");
+  TRIP.guests.forEach(g => {
+    const el = document.createElement("span");
+    el.className = "chip";
+    el.textContent = g;
+    guestWrap.appendChild(el);
+  });
+
+  // Rooms
+  const roomGrid = document.getElementById("room-grid");
+  TRIP.rooms.forEach(r => {
+    const card = document.createElement("div");
+    card.className = "room-card";
+    const occ = r.occupants.length
+      ? `<span class="name-list">${r.occupants.join(", ")}</span>`
+      : `<span class="tbd">TBD</span>`;
+    card.innerHTML = `
+      <div class="room-name">${r.id}</div>
+      <div class="room-bed">${r.bed}</div>
+      <div class="room-capacity">Max ${r.max}</div>
+      <div class="room-occupants">Guests: ${occ}</div>
+    `;
+    roomGrid.appendChild(card);
+  });
+
+  // Flights — arrivals
+  const arrWrap = document.getElementById("arrivals");
+  TRIP.flights.arrivals.forEach(f => {
+    const row = document.createElement("div");
+    row.className = "card-row";
+    const badge = f.flight === "TBD"
+      ? `<span class="flight-badge tbd-badge">TBD</span>`
+      : `<span class="flight-badge">${f.flight}</span>`;
+    const flag = f.early ? `<span class="early-flag">Early</span>` : "";
+    row.innerHTML = `
+      <div class="card-icon">✈️</div>
+      <div class="card-body">
+        <div class="card-label">${f.who.join(", ")}${flag}</div>
+        <div class="card-sub">${f.date} · ${f.time} · ${f.note}</div>
+      </div>
+      <div class="card-aside">${badge}</div>
+    `;
+    arrWrap.appendChild(row);
+  });
+
+  // Flights — departures
+  const depWrap = document.getElementById("departures");
+  TRIP.flights.departures.forEach(f => {
+    const row = document.createElement("div");
+    row.className = "card-row";
+    const badge = f.flight === "TBD"
+      ? `<span class="flight-badge tbd-badge">TBD</span>`
+      : `<span class="flight-badge">${f.flight}</span>`;
+    const flag = f.late ? `<span class="early-flag">Late</span>` : "";
+    row.innerHTML = `
+      <div class="card-icon">🛫</div>
+      <div class="card-body">
+        <div class="card-label">${f.who.join(", ")}${flag}</div>
+        <div class="card-sub">${f.date} · ${f.time} · ${f.note}</div>
+      </div>
+      <div class="card-aside">${badge}</div>
+    `;
+    depWrap.appendChild(row);
+  });
+
+  // Carpools
+  const carpoolWrap = document.getElementById("carpools-content");
+  if (!TRIP.carpools || TRIP.carpools.length === 0) {
+    carpoolWrap.innerHTML = `
+      <div class="carpool-tbd">
+        <strong>Carpools TBD</strong>
+        Details will be added once drivers and routes are confirmed.
+      </div>
+    `;
+  } else {
+    const card = document.createElement("div");
+    card.className = "card";
+    TRIP.carpools.forEach(c => {
+      const row = document.createElement("div");
+      row.className = "card-row";
+      row.innerHTML = `
+        <div class="card-icon">🚗</div>
+        <div class="card-body">
+          <div class="card-label">${c.driver} (driver)</div>
+          <div class="card-sub">From ${c.from} · ${c.departure}</div>
+          <div class="card-sub" style="margin-top:0.15rem">Passengers: ${c.passengers.join(", ")}</div>
+        </div>
+      `;
+      card.appendChild(row);
+    });
+    carpoolWrap.appendChild(card);
+  }
+
+  // Money
+  document.getElementById("money-amount").textContent = TRIP.money.perPerson;
+  document.getElementById("money-per").textContent    = "per person";
+  document.getElementById("money-total").textContent  = `Total rental: ${TRIP.money.totalRental} ÷ ${TRIP.money.guestCount} guests`;
+  document.getElementById("money-payto").textContent  = `Pay: ${TRIP.money.payTo} · ${TRIP.money.payWhen}`;
+
+  const moneyCard = document.getElementById("money-notes");
+  TRIP.money.notes.forEach(n => {
+    const row = document.createElement("div");
+    row.className = "card-row";
+    row.innerHTML = `
+      <div class="card-icon">${n.icon}</div>
+      <div class="card-body">
+        <div class="card-label">${n.label}</div>
+        <div class="card-sub">${n.detail}</div>
+      </div>
+    `;
+    moneyCard.appendChild(row);
+  });
+
+  // Schedule
+  const schedWrap = document.getElementById("schedule-wrap");
+  TRIP.schedule.forEach(day => {
+    const block = document.createElement("div");
+    block.className = "schedule-day";
+    let html = `<div class="schedule-day-header">${day.day}</div>`;
+    day.items.forEach(item => {
+      html += `
+        <div class="schedule-item">
+          <div class="schedule-time">${item.time}</div>
+          <div>
+            <div class="schedule-desc">${item.desc}</div>
+            ${item.note ? `<div class="schedule-note">${item.note}</div>` : ""}
+          </div>
+        </div>
+      `;
+    });
+    block.innerHTML = html;
+    schedWrap.appendChild(block);
+  });
+
+  // Good to know
+  const knowWrap = document.getElementById("know-list");
+  TRIP.goodToKnow.forEach(k => {
+    const item = document.createElement("div");
+    item.className = "know-item";
+    item.innerHTML = `<span class="know-icon">${k.icon}</span><span>${k.text}</span>`;
+    knowWrap.appendChild(item);
+  });
+
+  // What to bring
+  const bringWrap = document.getElementById("bring-grid");
+  TRIP.whatToBring.forEach(b => {
+    const item = document.createElement("div");
+    item.className = "bring-item";
+    item.innerHTML = `<span class="bring-icon">${b.icon}</span><span>${b.item}</span>`;
+    bringWrap.appendChild(item);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", render);
+</script>
+
+<!-- ── Hero ── -->
+<header class="hero">
+  <div class="hero-eyebrow">Group Getaway · Big Bear 2025</div>
+  <h1 id="hero-name"></h1>
+  <div class="hero-dates" id="hero-dates"></div>
+  <div class="hero-location" id="hero-loc"></div>
+  <div class="hero-pill" id="hero-pill"></div>
+</header>
+
+<div class="container">
+
+  <!-- Guests -->
+  <section>
+    <div class="section-title">Guests</div>
+    <div class="chips" id="guests-chips"></div>
+  </section>
+
+  <!-- Rooms -->
+  <section>
+    <div class="section-title">Rooms</div>
+    <div class="room-grid" id="room-grid"></div>
+  </section>
+
+  <!-- Flights -->
+  <section>
+    <div class="section-title">Flights</div>
+    <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:0.4rem;">Arrivals</div>
+    <div class="card" id="arrivals"></div>
+    <div style="font-size:0.7rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-top:0.9rem;margin-bottom:0.4rem;">Departures</div>
+    <div class="card" id="departures"></div>
+  </section>
+
+  <!-- Carpools -->
+  <section>
+    <div class="section-title">Carpools</div>
+    <div id="carpools-content"></div>
+  </section>
+
+  <!-- Money -->
+  <section>
+    <div class="section-title">Money</div>
+    <div class="money-highlight">
+      <div class="amount" id="money-amount"></div>
+      <div class="per-person" id="money-per"></div>
+      <div class="total" id="money-total"></div>
+      <div class="total" id="money-payto"></div>
+    </div>
+    <div class="card" id="money-notes"></div>
+  </section>
+
+  <!-- Weekend Schedule -->
+  <section>
+    <div class="section-title">Weekend Schedule</div>
+    <div id="schedule-wrap"></div>
+  </section>
+
+  <!-- Good to Know -->
+  <section>
+    <div class="section-title">Good to Know</div>
+    <div class="know-list" id="know-list"></div>
+  </section>
+
+  <!-- What to Bring -->
+  <section>
+    <div class="section-title">What to Bring</div>
+    <div class="bring-grid" id="bring-grid"></div>
+  </section>
+
+</div>
+
+<footer>
+  Above &amp; Beyond Group Therapy 700 · Big Bear, CA · Sept 2025
+</footer>
+
+</body>
+</html>
