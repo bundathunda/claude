@@ -1,6 +1,6 @@
 # Above & Beyond Group Therapy 700 — Trip Dashboard
 
-A static, single-file trip dashboard for the Big Bear 2025 group getaway.
+A static, single-file trip dashboard for the ABGT700 group getaway.
 
 ## Deploying to GitHub Pages
 
@@ -12,7 +12,7 @@ A static, single-file trip dashboard for the Big Bear 2025 group getaway.
    git add index.html README.md
    git commit -m "Add trip dashboard"
    git branch -M main
-   git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+   git remote add origin https://github.com/YOUR_USERNAME/abgt700.git
    git push -u origin main
    ```
 
