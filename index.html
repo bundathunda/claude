@@ -575,7 +575,7 @@ const TRIP = {
 
   guests: [
     "Byron", "Rebekah", "Brandon", "Jovanny",
-    "Mauricio", "Joobin", "Roujin", "Panda", "Phillip"
+    "Mauricio", "Joobin", "Roujin", "Panda", "Phillip", "Lindsey", "Jared"
   ],
 
   rooms: [
@@ -583,18 +583,26 @@ const TRIP = {
     { id: "Room 2",       bed: "1 King Bed",                 max: 2, occupants: ["Joobin", "Roujin"] },
     { id: "Room 3",       bed: "Double + Single + Bunk Bed", max: 5, occupants: ["Mauricio", "Jovanny", "Phillip", "Brandon"] },
     { id: "Room 4",       bed: "1 King Bed",                 max: 2, occupants: ["Rebekah", "Byron"] },
-    { id: "Room 5",       bed: "1 King Bed",                 max: 2, occupants: [] },
+    { id: "Room 5",       bed: "1 King Bed",                 max: 2, occupants: ["Lindsey", "Jared"] },
     { id: "Living Room",  bed: "Couch",                      max: 1, occupants: [] },
   ],
 
-  rentalCar: {
-    company: "SIXT",
-    vehicle: "Minivan",
-    pickup:  "Friday, Sept 11 · 12:00 PM",
-    dropoff: "Tuesday, Sept 15 · 12:00 PM",
-  },
-
-  carpools: [],
+  vehicles: [
+    {
+      name: "SIXT Minivan",
+      trips: [
+        { direction: "To Quincy",  date: "Friday, Sept 11",    time: "12:00 PM", passengers: ["Byron","Rebekah","Brandon","Jovanny","Mauricio","Amanda"] },
+        { direction: "To Seattle", date: "Monday, Sept 14",    time: "",         passengers: ["Brandon","Jovanny","Mauricio","Amanda","Phillip","Roujin","Joobin"] },
+      ],
+    },
+    {
+      name: "Turo Sedan",
+      trips: [
+        { direction: "To Quincy",  date: "Friday, Sept 11",    time: "4:00 PM",  passengers: ["Phillip","Roujin","Joobin"] },
+        { direction: "To Seattle", date: "Wednesday, Sept 16", time: "",         passengers: ["Byron","Rebekah"] },
+      ],
+    },
+  ],
 
   lineup: [
     {
@@ -657,9 +665,9 @@ const TRIP = {
   },
 
   money: {
-    totalRental: "$2,415.41",
-    perPerson: "$268",
-    guestCount: 9,
+    totalRental: "$2,416",
+    perPerson: "$220",
+    guestCount: 11,
     payTo: "Byron (Venmo)",
     payWhen: "Before the trip — to hold your spot",
     notes: [
@@ -921,46 +929,33 @@ function render() {
     depWrap.appendChild(row);
   });
 
-  // Carpools + Rental Car
+  // Vehicles / Carpools
   const carpoolWrap = document.getElementById("carpools-content");
-  const transportCard = document.createElement("div");
-  transportCard.className = "card";
-
-  if (TRIP.rentalCar) {
-    const rc = TRIP.rentalCar;
-    const row = document.createElement("div");
-    row.className = "card-row";
-    row.innerHTML = `
-      <div class="card-icon">🚐</div>
-      <div class="card-body">
-        <div class="card-label">${rc.company} ${rc.vehicle}</div>
-        <div class="card-sub">Pickup: ${rc.pickup}</div>
-        <div class="card-sub">Return: ${rc.dropoff}</div>
-      </div>
-    `;
-    transportCard.appendChild(row);
-  }
-
-  if (TRIP.carpools && TRIP.carpools.length > 0) {
-    TRIP.carpools.forEach(c => {
-      const row = document.createElement("div");
-      row.className = "card-row";
-      row.innerHTML = `
-        <div class="card-icon">🚗</div>
-        <div class="card-body">
-          <div class="card-label">${c.driver} (driver)</div>
-          <div class="card-sub">From ${c.from} · ${c.departure}</div>
-          <div class="card-sub" style="margin-top:0.15rem">Passengers: ${c.passengers.join(", ")}</div>
-        </div>
-      `;
-      transportCard.appendChild(row);
+  if (TRIP.vehicles && TRIP.vehicles.length > 0) {
+    TRIP.vehicles.forEach(v => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.style.marginBottom = "1rem";
+      const titleRow = document.createElement("div");
+      titleRow.className = "card-row";
+      titleRow.innerHTML = `<div class="card-body"><div class="card-label" style="font-size:1.05rem;font-weight:700">${v.name}</div></div>`;
+      card.appendChild(titleRow);
+      v.trips.forEach(t => {
+        const row = document.createElement("div");
+        row.className = "card-row";
+        row.innerHTML = `
+          <div class="card-icon">${t.direction.startsWith("To Q") ? "🚐" : "🏠"}</div>
+          <div class="card-body">
+            <div class="card-label">${t.direction} &mdash; ${t.date}${t.time ? " &bull; " + t.time : ""}</div>
+            <div class="card-sub">${t.passengers.join(", ")}</div>
+          </div>
+        `;
+        card.appendChild(row);
+      });
+      carpoolWrap.appendChild(card);
     });
-  } else if (!TRIP.rentalCar) {
+  } else {
     carpoolWrap.innerHTML = `<div class="carpool-tbd"><strong>Carpools TBD</strong>Details will be added once drivers and routes are confirmed.</div>`;
-  }
-
-  if (TRIP.rentalCar || (TRIP.carpools && TRIP.carpools.length > 0)) {
-    carpoolWrap.appendChild(transportCard);
   }
 
   // Money
