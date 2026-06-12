@@ -552,6 +552,57 @@
     .airbnb-callout-text { font-size: 0.82rem; color: var(--muted); }
     .airbnb-callout-label { font-size: 0.84rem; font-weight: 600; color: var(--text); margin-bottom: 0.1rem; }
 
+    /* Photo gallery */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 200px 200px;
+      gap: 6px;
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    .photo-grid-main {
+      grid-row: 1 / 3;
+      background: #222;
+    }
+    .photo-grid img, .photo-grid-main img {
+      width: 100%; height: 100%; object-fit: cover; display: block; cursor: pointer;
+      transition: opacity 0.15s;
+    }
+    .photo-grid img:hover, .photo-grid-main img:hover { opacity: 0.85; }
+    .photo-show-all {
+      display: inline-block; margin-top: 0.75rem;
+      font-size: 0.82rem; color: var(--accent-dim); cursor: pointer;
+      text-decoration: underline;
+    }
+    @media (max-width: 600px) {
+      .photo-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 160px 160px;
+      }
+      .photo-grid-main { grid-row: 1; grid-column: 1 / 3; }
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
+      flex-direction: column;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-img { max-width: 92vw; max-height: 80vh; border-radius: 8px; object-fit: contain; }
+    .lightbox-close {
+      position: absolute; top: 1rem; right: 1.25rem;
+      font-size: 2rem; color: #fff; cursor: pointer; line-height: 1;
+    }
+    .lightbox-nav { display: flex; gap: 1rem; margin-top: 1rem; }
+    .lightbox-btn {
+      background: rgba(255,255,255,0.12); color: #fff; border: none;
+      padding: 0.5rem 1.2rem; border-radius: 6px; cursor: pointer; font-size: 0.9rem;
+    }
+    .lightbox-btn:hover { background: rgba(255,255,255,0.22); }
+    .lightbox-counter { color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 0.5rem; }
+
     footer {
       text-align: center;
       padding: 2rem 1rem 3rem;
@@ -572,6 +623,24 @@ const TRIP = {
   checkout: "Monday, Sept 14, 2025",
   nights: 3,
   airbnb: "https://airbnb.com/rooms/53256234",
+
+  photos: [
+    "https://a0.muscache.com/im/pictures/67be8701-dc30-4169-9448-286710570ada.jpg",
+    "https://a0.muscache.com/im/pictures/0f83c917-505d-41b4-92de-c085e16133d7.jpg",
+    "https://a0.muscache.com/im/pictures/2c9dd265-5a74-49da-8c33-6a5aac931fa1.jpg",
+    "https://a0.muscache.com/im/pictures/34eb43f7-8082-49ba-9d28-2540843ea21b.jpg",
+    "https://a0.muscache.com/im/pictures/73bc416c-83d3-4767-962a-84c69223e291.jpg",
+    "https://a0.muscache.com/im/pictures/77efe807-aa34-453d-9c93-7eef359595ab.jpg",
+    "https://a0.muscache.com/im/pictures/7a6d7713-08f7-4960-a292-fc346625bd48.jpg",
+    "https://a0.muscache.com/im/pictures/85a6218d-302e-45f9-a5fe-0d27f5cbbffb.jpg",
+    "https://a0.muscache.com/im/pictures/90f82e52-c666-4bd5-be9f-cd66cfbef518.jpg",
+    "https://a0.muscache.com/im/pictures/9f568647-c9fd-457f-8503-c80b9597ff14.jpg",
+    "https://a0.muscache.com/im/pictures/a146d433-4007-407f-8097-b7792af3f059.jpg",
+    "https://a0.muscache.com/im/pictures/a8727802-5378-40d3-831e-0f673a215243.jpg",
+    "https://a0.muscache.com/im/pictures/ab9362f7-4d5f-4d93-a8fc-4bd7c5d5ee66.jpg",
+    "https://a0.muscache.com/im/pictures/c16c7bd5-2e1e-4d4e-80d4-4f4a2d4b1f6e.jpg",
+    "https://a0.muscache.com/im/pictures/d4e1f6f8-1902-4bb9-90fd-f45082d08ebf.jpg",
+  ],
 
   guests: [
     "Byron", "Rebekah", "Brandon", "Jovanny",
@@ -756,6 +825,7 @@ const TRIP = {
 // ─────────────────────────────────────────────
 
 const NAV = [
+  { id: "photos",   label: "Photos" },
   { id: "guests",   label: "Guests" },
   { id: "rooms",    label: "Rooms" },
   { id: "lineup",   label: "Lineup" },
@@ -825,6 +895,51 @@ function initScrollSpy() {
 function render() {
   // Hero
   document.getElementById("hero-name").textContent  = TRIP.name;
+
+  // Photo gallery
+  const photoGrid = document.getElementById("photo-grid");
+  if (photoGrid && TRIP.photos && TRIP.photos.length) {
+    const main = document.createElement("div");
+    main.className = "photo-grid-main";
+    const mainImg = document.createElement("img");
+    mainImg.src = TRIP.photos[0] + "?im_w=960";
+    mainImg.alt = "House photo 1";
+    mainImg.addEventListener("click", () => openLightbox(0));
+    main.appendChild(mainImg);
+    photoGrid.appendChild(main);
+    for (let i = 1; i < Math.min(5, TRIP.photos.length); i++) {
+      const thumb = document.createElement("div");
+      const img = document.createElement("img");
+      img.src = TRIP.photos[i] + "?im_w=480";
+      img.alt = "House photo " + (i+1);
+      const idx = i;
+      img.addEventListener("click", () => openLightbox(idx));
+      thumb.appendChild(img);
+      photoGrid.appendChild(thumb);
+    }
+  }
+
+  // Lightbox
+  let lbIdx = 0;
+  const lightbox = document.getElementById("lightbox");
+  const lbImg = document.getElementById("lb-img");
+  const lbCounter = document.getElementById("lb-counter");
+  function openLightbox(idx) {
+    lbIdx = idx;
+    lbImg.src = TRIP.photos[lbIdx] + "?im_w=1440";
+    lbCounter.textContent = (lbIdx+1) + " / " + TRIP.photos.length;
+    lightbox.classList.add("open");
+  }
+  document.getElementById("lb-close").addEventListener("click", () => lightbox.classList.remove("open"));
+  document.getElementById("lb-prev").addEventListener("click", () => { lbIdx = (lbIdx - 1 + TRIP.photos.length) % TRIP.photos.length; openLightbox(lbIdx); });
+  document.getElementById("lb-next").addEventListener("click", () => { lbIdx = (lbIdx + 1) % TRIP.photos.length; openLightbox(lbIdx); });
+  lightbox.addEventListener("click", e => { if (e.target === lightbox) lightbox.classList.remove("open"); });
+  document.addEventListener("keydown", e => {
+    if (!lightbox.classList.contains("open")) return;
+    if (e.key === "Escape") lightbox.classList.remove("open");
+    if (e.key === "ArrowLeft") { lbIdx = (lbIdx - 1 + TRIP.photos.length) % TRIP.photos.length; openLightbox(lbIdx); }
+    if (e.key === "ArrowRight") { lbIdx = (lbIdx + 1) % TRIP.photos.length; openLightbox(lbIdx); }
+  });
   document.getElementById("hero-dates").textContent = `${TRIP.checkin} → ${TRIP.checkout}`;
   document.getElementById("hero-pill").textContent  = `${TRIP.nights} nights · ${TRIP.guests.length} guests`;
   const airbnbLink = document.getElementById("hero-airbnb");
@@ -1046,6 +1161,13 @@ document.addEventListener("DOMContentLoaded", () => {
   </header>
 
   <div class="container">
+
+    <!-- Photos -->
+    <section id="photos">
+      <div class="section-title">The House</div>
+      <div class="photo-grid" id="photo-grid"></div>
+      <span class="photo-show-all" onclick="openLightbox(0)">View all photos</span>
+    </section>
 
     <!-- Guests -->
     <section id="guests">
